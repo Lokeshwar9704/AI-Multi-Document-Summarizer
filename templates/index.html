@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="main-card">
+    <aside class="sidebar">
+        <div class="sidebar-icon active" id="btnRefresh" title="Clear All">
+            <i class="ph-bold ph-arrows-counter-clockwise" style="color: #ef4444; font-size: 20px;"></i>
+        </div>
+        <div class="sidebar-icon" id="btnHistory" title="View History">
+            <i class="ph-bold ph-identification-card" style="color: #a855f7; font-size: 20px;"></i>
+        </div>
+        <div class="sidebar-icon" id="btnSearch" title="Search (Coming Soon)">
+            <i class="ph-bold ph-magnifying-glass" style="color: #3b82f6; font-size: 20px;"></i>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="toolbar">
+            <div class="modes">
+                <span class="mode-label">Modes:</span>
+                <button class="mode-btn active" data-mode="paragraph">Paragraph</button>
+                <button class="mode-btn" data-mode="bullets">Bullet Points</button>
+                <button class="mode-btn" data-mode="flowchart">Flowchart</button>
+                <button class="mode-btn" data-mode="smart_flowchart">Smart Flowchart (AI Structured)</button>
+                <button class="mode-btn" data-mode="mindmap">Mindmap</button>
+            </div>
+
+            <div class="slider-container">
+                <span class="mode-label">Summary Length:</span>
+                <span style="color: var(--text-muted)">Short</span>
+                <input type="range" class="slider" min="1" max="3" value="2">
+                <span style="color: var(--text-muted)">Long</span>
+            </div>
+        </div>
+
+        <div class="editor-container">
+            <div class="column left-column">
+                <textarea id="textInput" placeholder='Enter or paste your text and press "Summarize."'></textarea>
+
+                <button id="pasteBtn" class="paste-text-btn">
+                    <i class="ph-bold ph-clipboard-text"></i>
+                    Paste Text
+                </button>
+
+                <div class="card-footer">
+                    <a href="#" class="upload-doc" id="uploadLink">
+                        <i class="ph-bold ph-cloud-arrow-up"></i>
+                        Upload Doc
+                    </a>
+                    <input type="file" id="fileInput" class="hidden" accept=".txt,.pdf,.ppt,.pptx" multiple>
+
+                    <button id="summarizeBtn" class="summarize-btn">Summarize</button>
+                </div>
+            </div>
+
+            <div class="column right-column">
+                <div id="summaryOutput"></div>
+
+                <div class="column-actions">
+                    <div class="action-btn" id="btnPlayVoice" title="Play Voice Summary">
+                        <i class="ph-bold ph-speaker-high"></i>
+                    </div>
+                    <div class="action-btn" id="btnToggleChat" title="Chat with Document">
+                        <i class="ph-bold ph-chat-circle-text"></i>
+                    </div>
+                    <div class="action-btn" id="btnDownloadPDF" title="Download as PDF">
+                        <i class="ph-bold ph-file-pdf"></i>
+                    </div>
+                    <div class="action-btn" id="btnDownloadPNG" title="Download as PNG">
+                        <i class="ph-bold ph-image"></i>
+                    </div>
+                </div>
+
+                <div class="column-footer stats-footer">
+                    <div class="stats">
+                        <span id="sentenceCount">0</span> sentences • <span id="wordCount">0</span> words
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="chat-panel hidden" id="chatPanel">
+                    <div class="chat-header">
+                        <h4>Chat with Document</h4>
+                        <i class="ph-bold ph-x close-chat" id="closeChat"></i>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg bot">Hello! Ask me questions about the document.</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask a question..." />
+                        <button id="sendChatBtn"><i class="ph-bold ph-paper-plane-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+/* Chat Panel */
+.chat-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.close-chat {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f8fafc;
+}
+
+.chat-msg {
+    max-width: 85%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.chat-msg p {
+    margin-bottom: 10px;
+}
+
+.chat-msg p:last-child {
+    margin-bottom: 0;
+}
+
+.chat-msg ul, .chat-msg ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.chat-msg.bot {
+    background: white;
+    border: 1px solid var(--border-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+.chat-msg.user {
+    background: var(--primary-color);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+.chat-input-area {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid var(--border-color);
+}
+
+.chat-input-area input {
+    flex-grow: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 8px 15px;
+    outline: none;
+    font-family: inherit;
+}
+
+.chat-input-area button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,13 @@
+Flask
+python-pptx
+PyPDF2
+python-dotenv
+langchain
+google-generativeai
+tiktoken
+flask-sqlalchemy
+flask-login
+werkzeug
+pymupdf
+youtube-transcript-api
+edge-tts

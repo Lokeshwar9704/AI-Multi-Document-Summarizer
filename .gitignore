@@ -1,0 +1,39 @@
+# Environments
+venv/
+ven/
+env/
+.env
+.venv/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+history.db
+*.sqlite3
+
+# Flask instance folder
+instance/
+
+# Logs and outputs
+stderr.log
+test_output.txt
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary folders
+tmp/
+temp/
