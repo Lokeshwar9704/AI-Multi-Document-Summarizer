@@ -1,6 +1,6 @@
-# AI Text Summarizer
+# AI-Multi-Document-Summarizer
 
-An advanced AI-powered text summarization web application built with Flask and Google's Gemini models. This application allows users to upload various document types (PDFs, PPTXs, TXT files) or provide URLs (including YouTube videos) to generate high-quality summaries in multiple formats.
+An advanced AI-powered text summarization web application built with Flask and Google's Gemini models. This application allows users to upload various document types (PDFs, PPTXs, TXT files) or provide URLs (including YouTube videos) to generate high-quality summaries in multiple formats. Supports features like flowcharts, mindmaps, Q&A chat, and text-to-speech.
 
 ## Features
 
