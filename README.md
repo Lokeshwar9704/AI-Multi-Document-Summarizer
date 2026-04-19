@@ -76,6 +76,14 @@ The application will be accessible at `http://127.0.0.1:5000/`.
 5. **Summarize:** Click the summarize button and wait for the AI to process your document.
 6. **Chat & Audio:** Use the Chat tab to ask questions, or the play button to hear the summary aloud.
 
+## Sample input and output
+**Input** :
+<img width="1919" height="916" alt="Screenshot 2026-04-18 142356" src="https://github.com/user-attachments/assets/07aeab0d-235f-44c7-b4ec-42fa9ed983f3" />
+
+**Output** :
+<img width="1515" height="887" alt="Screenshot 2026-04-18 142633" src="https://github.com/user-attachments/assets/8c8ddb99-4f62-416b-b9b3-bb647feb3951" />
+
+
 ## License
 
 This project is licensed under the MIT License.
